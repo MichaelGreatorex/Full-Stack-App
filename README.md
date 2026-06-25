@@ -126,3 +126,24 @@ Automated deployment via GitHub Actions:
 /infra      → Docker + CI/CD configs
 /prompts    → LLM prompt templates
 /tests      → Unit + integration tests
+```
+
+### 🧠 Key Engineering Highlights
+
+--- 
+
+- End-to-end AI pipeline (CV → JD → interview → scoring)
+- LLM-based structured evaluation system
+- Production-style cloud deployment on AWS
+- Fully automated CI/CD pipeline
+- Stateful conversational interview system
+
+--- 
+
+### 📈 Future Improvements
+- Voice-based interview mode
+- Adaptive difficulty questioning
+- Multi-interviewer simulation
+- Personal performance tracking over time
+
+
