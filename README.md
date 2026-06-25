@@ -20,18 +20,22 @@ The system is fully deployed on AWS with CI/CD automation.
 
 ## 🏗️ Architecture
 
-Frontend (Next.js)
-↓
-Backend API (FastAPI - Dockerised)
-↓
-AWS ECS (Fargate)
-↓
-AWS Services:
-S3 (CV storage)
-RDS (PostgreSQL)
-CloudWatch (logging)
-↓
-OpenAI API (LLM layer)
+#### Frontend 
+- Next.js
+  
+#### Backend API 
+- FastAPI (Dockerised)
+
+#### AWS ECS 
+- Fargate
+
+#### AWS Services:
+- S3 (CV storage)
+- RDS (PostgreSQL)
+- CloudWatch (logging)
+  
+#### OpenAI API 
+- LLM layer
 
 ---
 
