@@ -126,6 +126,7 @@ Automated deployment via GitHub Actions:
 /infra      → Docker + CI/CD configs
 /prompts    → LLM prompt templates
 /tests      → Unit + integration tests
+/docs       → Architecture decisions
 ```
 
 ### 🧠 Key Engineering Highlights
