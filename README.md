@@ -100,13 +100,13 @@ Automated deployment via GitHub Actions:
 ## 🧪 Tech Stack
 
 ### Frontend
-- Next.js
-- React
+- Next.js - frontend not scaffolded yet
+- React - frontend not scaffolded yet
 
 ### Backend
 - FastAPI
 - Python
-- OpenAI API
+- OpenAI API - client package not added yet
 
 ### Infrastructure
 - AWS ECS (Fargate)
@@ -114,6 +114,68 @@ Automated deployment via GitHub Actions:
 - AWS RDS (Postgres)
 - AWS ECR
 - GitHub Actions
+
+---
+
+## ⚙️ Clone, Setup, And Run
+
+If you are cloning this repo and want to run the backend locally, use the following runtime and commands.
+
+### Required Runtime
+
+- Python `3.14`
+- FastAPI `0.138.2`
+- Pydantic `2.13.4`
+- Uvicorn `0.32.1`
+- Pydantic Settings `2.11.0`
+- python-multipart `0.0.30`
+- pytest `9.1.1`
+- pytest-asyncio `1.4.0`
+- httpx2 `2.5.0`
+
+The repository pins Python in `.python-version` and backend dependencies in `backend/requirements.txt` and `backend/requirements-dev.txt`.
+
+### Create The Local Environment
+
+```bash
+cd backend
+python3.14 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+```
+
+### Environment Files
+
+- Backend settings are loaded from `backend/.env`
+- A starter template is available at `backend/.env.example`
+
+### Start The API
+
+```bash
+cd backend
+source .venv/bin/activate
+uvicorn app.main:app --reload
+```
+
+The API will be available at `http://127.0.0.1:8000`.
+
+The currently implemented endpoint is:
+
+- `GET /api/v1/health`
+
+### Run Tests
+
+```bash
+cd backend
+source .venv/bin/activate
+python -m pytest ../tests/test_config.py ../tests/test_health.py
+```
+
+### Current Repo State
+
+- The backend should be run from the `backend` directory when using the local `.venv`
+- The frontend app is not scaffolded yet, so there is no frontend run command in this repo yet
+- The only implemented backend endpoint today is the health check
 
 ---
 
