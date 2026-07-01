@@ -100,12 +100,23 @@ Automated deployment via GitHub Actions:
 ## 🧪 Tech Stack
 
 ### Frontend
-- Next.js - frontend not scaffolded yet
-- React - frontend not scaffolded yet
+- Next.js `16.2.9`
+- React `19.2.4`
+- React DOM `19.2.4`
+- TypeScript `5`
+- Tailwind CSS `4`
+- ESLint `9`
 
 ### Backend
-- FastAPI
-- Python
+- Python `3.14`
+- FastAPI `0.138.2`
+- Pydantic `2.13.4`
+- Pydantic Settings `2.11.0`
+- Uvicorn `0.32.1`
+- python-multipart `0.0.30`
+- pytest `9.1.1`
+- pytest-asyncio `1.4.0`
+- httpx2 `2.5.0`
 - OpenAI API - client package not added yet
 
 ### Infrastructure
@@ -119,23 +130,28 @@ Automated deployment via GitHub Actions:
 
 ## ⚙️ Clone, Setup, And Run
 
-If you are cloning this repo and want to run the backend locally, use the following runtime and commands.
+If you are cloning this repo and want to run it locally, use the following runtime and commands.
 
 ### Required Runtime
 
+- Node.js `24.18.0` via `nvm` for the frontend
+- npm `11.16.0`
 - Python `3.14`
-- FastAPI `0.138.2`
-- Pydantic `2.13.4`
-- Uvicorn `0.32.1`
-- Pydantic Settings `2.11.0`
-- python-multipart `0.0.30`
-- pytest `9.1.1`
-- pytest-asyncio `1.4.0`
-- httpx2 `2.5.0`
 
-The repository pins Python in `.python-version` and backend dependencies in `backend/requirements.txt` and `backend/requirements-dev.txt`.
+The repository pins Python in `.python-version`, Node in `.nvmrc`, and backend dependencies in `backend/requirements.txt` and `backend/requirements-dev.txt`.
 
 ### Create The Local Environment
+
+#### Frontend
+
+```bash
+nvm install
+nvm use
+cd frontend
+npm install
+```
+
+#### Backend
 
 ```bash
 cd backend
@@ -148,6 +164,15 @@ python -m pip install -r requirements-dev.txt
 
 - Backend settings are loaded from `backend/.env`
 - A starter template is available at `backend/.env.example`
+
+### Start The Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+The frontend will be available at `http://localhost:3000`.
 
 ### Start The API
 
@@ -171,10 +196,19 @@ source .venv/bin/activate
 python -m pytest ../tests/test_config.py ../tests/test_health.py
 ```
 
+### Validate The Frontend
+
+```bash
+cd frontend
+npm run lint
+npm run build
+```
+
 ### Current Repo State
 
 - The backend should be run from the `backend` directory when using the local `.venv`
-- The frontend app is not scaffolded yet, so there is no frontend run command in this repo yet
+- The frontend lives in `frontend` as a Next.js App Router app
+- The frontend currently validates cleanly with `npm run lint` and `npm run build` on Node `24.18.0`
 - The only implemented backend endpoint today is the health check
 
 ---
