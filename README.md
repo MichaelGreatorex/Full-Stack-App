@@ -1,15 +1,15 @@
-# 🧠 AI Interview Coach
+# AI Interview Coach
 
-An AI-powered interview preparation platform that generates personalised interview questions from a candidate’s CV and job description, simulates mock interviews, and evaluates responses using structured AI-driven rubrics.
+An AI-powered interview preparation platform that generates personalized interview questions from a candidate's CV and job description, simulates mock interviews, and evaluates responses using structured AI-driven rubrics.
 
 ---
 
-## 🚀 Overview
+## Overview
 
 This project simulates a real-world interview experience by:
 
-- Parsing a user’s CV (PDF upload)
-- Analysing a job description
+- Parsing a user's CV (PDF upload)
+- Analyzing a job description
 - Generating tailored interview questions
 - Running a chat-based mock interview
 - Scoring and providing structured feedback on answers
@@ -18,74 +18,84 @@ The system is fully deployed on AWS with CI/CD automation.
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
-#### Frontend 
+### Frontend Architecture
+
 - Next.js
-  
-#### Backend API 
-- FastAPI (Dockerised)
 
-#### AWS ECS 
-- Fargate
+### Backend API Architecture
 
-#### AWS Services:
+- FastAPI (Dockerized)
+
+### Compute Architecture
+
+- AWS ECS (Fargate)
+
+### AWS Service Architecture
+
 - S3 (CV storage)
 - RDS (PostgreSQL)
 - CloudWatch (logging)
-  
-#### OpenAI API 
-- LLM layer
+
+### AI Layer
+
+- OpenAI API
 
 ---
 
-## 🧠 Core Features
+## Core Features
 
-### 📄 CV & JD Analysis
+### CV And JD Analysis
+
 - Extracts structured data from CV
 - Parses job descriptions into skill requirements
 - Identifies skill gaps and alignment
 
-### 🎯 Interview Generation
-- Generates:
-  - Technical questions
-  - Behavioural questions
-  - CV-specific probing questions
+### Interview Generation
 
-### 💬 Mock Interview Engine
+- Generates technical questions
+- Generates behavioral questions
+- Generates CV-specific probing questions
+
+### Mock Interview Engine
+
 - Chat-based interview flow
 - Stateful session management
 - Real-time question/answer loop
 
-### 📊 AI Evaluation System
+### AI Evaluation System
+
 Each answer is scored using:
+
 - Clarity
 - Technical depth
 - Relevance
-- Structure (e.g. STAR method)
+- Structure (for example, STAR method)
 
 Outputs:
-- Score (1–10)
-- Strengths & weaknesses
+
+- Score (1 to 10)
+- Strengths and weaknesses
 - Ideal improved answer
 
 ---
 
-## ☁️ Deployment
+## Deployment
 
-The system is deployed on AWS using containerised infrastructure.
+The system is deployed on AWS using containerized infrastructure.
 
-### Infrastructure Components
+### Deployment Components
 
-- **ECS (Fargate):** Backend service runtime
-- **S3:** CV file storage
-- **RDS (PostgreSQL):** Persistent session storage
-- **ALB:** API routing
-- **CloudWatch:** Logging and monitoring
+- ECS (Fargate): backend service runtime
+- S3: CV file storage
+- RDS (PostgreSQL): persistent session storage
+- ALB: API routing
+- CloudWatch: logging and monitoring
 
 ---
 
-## 🔄 CI/CD Pipeline
+## CI/CD Pipeline
 
 Automated deployment via GitHub Actions:
 
@@ -97,9 +107,10 @@ Automated deployment via GitHub Actions:
 
 ---
 
-## 🧪 Tech Stack
+## Tech Stack
 
-### Frontend
+### Frontend Stack
+
 - Next.js `16.2.9`
 - React `19.2.4`
 - React DOM `19.2.4`
@@ -107,7 +118,8 @@ Automated deployment via GitHub Actions:
 - Tailwind CSS `4`
 - ESLint `9`
 
-### Backend
+### Backend Stack
+
 - Python `3.14`
 - FastAPI `0.138.2`
 - Pydantic `2.13.4`
@@ -117,20 +129,21 @@ Automated deployment via GitHub Actions:
 - pytest `9.1.1`
 - pytest-asyncio `1.4.0`
 - httpx2 `2.5.0`
-- OpenAI API - client package not added yet
+- OpenAI API (client package not added yet)
 
-### Infrastructure
+### Infrastructure Stack
+
 - AWS ECS (Fargate)
 - AWS S3
-- AWS RDS (Postgres)
+- AWS RDS (PostgreSQL)
 - AWS ECR
 - GitHub Actions
 
 ---
 
-## ⚙️ Clone, Setup, And Run
+## Clone, Setup, And Run
 
-If you are cloning this repo and want to run it locally, use the following runtime and commands.
+If you are cloning this repository and want to run it locally, use the following runtime and commands.
 
 ### Required Runtime
 
@@ -140,9 +153,7 @@ If you are cloning this repo and want to run it locally, use the following runti
 
 The repository pins Python in `.python-version`, Node in `.nvmrc`, and backend dependencies in `backend/requirements.txt` and `backend/requirements-dev.txt`.
 
-### Create The Local Environment
-
-#### Frontend
+### Local Environment Setup: Frontend
 
 ```bash
 nvm install
@@ -151,7 +162,7 @@ cd frontend
 npm install
 ```
 
-#### Backend
+### Local Environment Setup: Backend
 
 ```bash
 cd backend
@@ -165,7 +176,34 @@ python -m pip install -r requirements-dev.txt
 - Backend settings are loaded from `backend/.env`
 - A starter template is available at `backend/.env.example`
 
-### Start The Frontend
+### Single Command Dev Stack (Frontend + Backend + Pytests)
+
+From the repository root, run:
+
+```bash
+./scripts/dev-stack.sh up
+```
+
+This command will:
+
+- Run the full backend test suite in `tests/` with verbose per-test output
+- Start FastAPI on `http://127.0.0.1:8000`
+- Start Next.js on `http://localhost:3000`
+- Verify both services are healthy before reporting success
+
+To stop both services:
+
+```bash
+./scripts/dev-stack.sh down
+```
+
+To check whether both are running:
+
+```bash
+./scripts/dev-stack.sh status
+```
+
+### Start Frontend Manually
 
 ```bash
 cd frontend
@@ -174,7 +212,7 @@ npm run dev
 
 The frontend will be available at `http://localhost:3000`.
 
-### Start The API
+### Start API Manually
 
 ```bash
 cd backend
@@ -184,19 +222,53 @@ uvicorn app.main:app --reload
 
 The API will be available at `http://127.0.0.1:8000`.
 
-The currently implemented endpoint is:
-
-- `GET /api/v1/health`
-
-### Run Tests
+### Run Tests Manually
 
 ```bash
 cd backend
 source .venv/bin/activate
-python -m pytest ../tests/test_config.py ../tests/test_health.py
+python -m pytest -vv ../tests
 ```
 
-### Validate The Frontend
+### Test Suite Coverage
+
+The backend test suite currently validates configuration behavior, basic API health behavior, and API route wiring.
+
+#### `tests/test_config.py`
+
+- `test_settings_parse_comma_separated_allowed_origins`
+  - Verifies comma-separated `allowed_origins` input is parsed into a clean list.
+- `test_settings_convert_empty_strings_to_none`
+  - Verifies empty and whitespace values for optional settings become `None`.
+
+#### `tests/test_health.py`
+
+- `test_health_check`
+  - Verifies `GET /api/v1/health` returns HTTP 200 and `{"status": "ok"}`.
+
+#### `tests/test_routes.py`
+
+- `test_openapi_includes_expected_v1_routes`
+  - Parameterized test that verifies each expected v1 route is present in `GET /openapi.json`.
+  - Covered routes:
+    - `/api/v1/health`
+    - `/api/v1/cv/upload`
+    - `/api/v1/jd/upload`
+    - `/api/v1/interview/start`
+    - `/api/v1/interview/answer`
+    - `/api/v1/sessions/{session_id}`
+
+#### `tests/conftest.py`
+
+- Provides the shared FastAPI `TestClient` fixture used by API tests.
+
+#### Current Coverage Boundaries
+
+- The suite currently checks route registration and API shape, not full business logic.
+- Placeholder route handlers are intentionally not exercised yet.
+- As route implementations are added, add behavior tests alongside each endpoint.
+
+### Validate Frontend
 
 ```bash
 cd frontend
@@ -204,43 +276,41 @@ npm run lint
 npm run build
 ```
 
-### Current Repo State
+### Current Repository State
 
 - The backend should be run from the `backend` directory when using the local `.venv`
 - The frontend lives in `frontend` as a Next.js App Router app
-- The frontend currently validates cleanly with `npm run lint` and `npm run build` on Node `24.18.0`
-- The only implemented backend endpoint today is the health check
+- The frontend validates with `npm run lint` and `npm run build` on Node `24.18.0`
+- The only fully implemented backend endpoint today is the health check
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
+```text
+/frontend   -> Next.js UI
+/backend    -> FastAPI server
+/infra      -> Docker + CI/CD configs
+/prompts    -> LLM prompt templates
+/tests      -> Unit + integration tests
+/docs       -> Architecture decisions
 ```
 
-/frontend   → Next.js UI
-/backend    → FastAPI server
-/infra      → Docker + CI/CD configs
-/prompts    → LLM prompt templates
-/tests      → Unit + integration tests
-/docs       → Architecture decisions
-```
+---
 
-### 🧠 Key Engineering Highlights
+## Key Engineering Highlights
 
---- 
-
-- End-to-end AI pipeline (CV → JD → interview → scoring)
+- End-to-end AI pipeline (CV -> JD -> interview -> scoring)
 - LLM-based structured evaluation system
 - Production-style cloud deployment on AWS
-- Fully automated CI/CD pipeline
+- Automated CI/CD pipeline
 - Stateful conversational interview system
 
---- 
+---
 
-### 📈 Future Improvements
+## Future Improvements
+
 - Voice-based interview mode
 - Adaptive difficulty questioning
 - Multi-interviewer simulation
 - Personal performance tracking over time
-
-
