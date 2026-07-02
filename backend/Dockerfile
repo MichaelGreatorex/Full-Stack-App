@@ -8,7 +8,10 @@ WORKDIR /app
 RUN adduser --disabled-password --gecos "" appuser
 
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-dev.txt ./
+RUN pip install --no-cache-dir -r requirements-dev.txt
+
+COPY pytest.ini ./
 
 COPY app ./app
 RUN chown -R appuser:appuser /app

@@ -22,6 +22,12 @@ services:
       context: ./backend
     container_name: ai-interview-coach-backend
     restart: unless-stopped
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "env -u DATABASE_HOST -u DATABASE_PORT -u DATABASE_NAME -u DATABASE_USER -u DATABASE_PASSWORD python -m pytest -c /app/pytest.ini -q /tests && uvicorn app.main:app --host 0.0.0.0 --port 8000",
+      ]
     environment:
       ENVIRONMENT: local
       APP_NAME: AI Interview Coach
@@ -34,6 +40,8 @@ services:
       DATABASE_USER: ai_interview
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-ai_interview_dev_password}
       ALLOWED_ORIGINS: '["http://localhost:3000", "http://frontend:3000"]'
+    volumes:
+      - ./tests:/tests:ro
     depends_on:
       postgres:
         condition: service_healthy

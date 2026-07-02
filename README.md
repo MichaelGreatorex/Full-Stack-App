@@ -180,8 +180,10 @@ docker compose up --build
 This starts:
 
 - Postgres on `127.0.0.1:5432`
-- FastAPI backend on `http://127.0.0.1:8000`
+- Backend pytests (run once at startup) and then FastAPI on `http://127.0.0.1:8000`
 - Next.js frontend on `http://127.0.0.1:3000`
+
+If tests fail, the backend container exits and `docker compose up` reports the failure in backend logs.
 
 Default local connection string (also in `backend/.env.example`):
 
