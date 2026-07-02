@@ -1,0 +1,80 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-interview-coach-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ai_interview
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ai_interview_dev_password}
+      POSTGRES_DB: ai_interview_coach
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  backend:
+    build:
+      context: ./backend
+    container_name: ai-interview-coach-backend
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: local
+      APP_NAME: AI Interview Coach
+      APP_VERSION: 0.1.0
+      DEBUG: "false"
+      AWS_REGION: eu-west-2
+      DATABASE_HOST: postgres
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: ai_interview_coach
+      DATABASE_USER: ai_interview
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-ai_interview_dev_password}
+      ALLOWED_ORIGINS: '["http://localhost:3000", "http://frontend:3000"]'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health')",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: ai-interview-coach-frontend
+    restart: unless-stopped
+    environment:
+      API_BASE_URL: http://backend:8000
+      NODE_ENV: production
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  postgres_data:

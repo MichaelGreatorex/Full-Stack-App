@@ -147,80 +147,79 @@ If you are cloning this repository and want to run it locally, use the following
 
 ### Required Runtime
 
+- Docker Desktop (with Docker Compose)
+
+Optional (only for host-based testing workflows):
+
 - Node.js `24.18.0` via `nvm` for the frontend
 - npm `11.16.0`
 - Python `3.14`
 
 The repository pins Python in `.python-version`, Node in `.nvmrc`, and backend dependencies in `backend/requirements.txt` and `backend/requirements-dev.txt`.
 
-### Local Environment Setup: Frontend
-
-```bash
-nvm install
-nvm use
-cd frontend
-npm install
-```
-
-### Local Environment Setup: Backend
-
-```bash
-cd backend
-python3.14 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements-dev.txt
-```
-
 ### Environment Files
 
 - Backend settings are loaded from `backend/.env`
 - A starter template is available at `backend/.env.example`
 
-### Single Command Dev Stack (Frontend + Backend + Pytests)
+### Full Container Stack (Frontend + Backend + Postgres)
 
-From the repository root, run:
+Docker Compose is the canonical local startup path. From repository root, start all three services:
+
+```bash
+docker compose up --build
+```
+
+Optional: override the local Postgres password for containers:
+
+```bash
+export POSTGRES_PASSWORD="your-local-password"
+docker compose up --build
+```
+
+This starts:
+
+- Postgres on `127.0.0.1:5432`
+- FastAPI backend on `http://127.0.0.1:8000`
+- Next.js frontend on `http://127.0.0.1:3000`
+
+Default local connection string (also in `backend/.env.example`):
+
+```text
+postgresql://ai_interview:ai_interview_dev_password@127.0.0.1:5432/ai_interview_coach
+```
+
+Stop the stack:
+
+```bash
+docker compose down
+```
+
+Reset Postgres data volume:
+
+```bash
+docker compose down -v
+```
+
+### Optional Wrapper Scripts
+
+The scripts below now proxy to Docker Compose for convenience.
+
+All services:
 
 ```bash
 ./scripts/dev-stack.sh up
-```
-
-This command will:
-
-- Run the full backend test suite in `tests/` with verbose per-test output
-- Start FastAPI on `http://127.0.0.1:8000`
-- Start Next.js on `http://localhost:3000`
-- Verify both services are healthy before reporting success
-
-To stop both services:
-
-```bash
+./scripts/dev-stack.sh status
 ./scripts/dev-stack.sh down
 ```
 
-To check whether both are running:
+Postgres only:
 
 ```bash
-./scripts/dev-stack.sh status
+./scripts/postgres.sh up
+./scripts/postgres.sh status
+./scripts/postgres.sh down
 ```
-
-### Start Frontend Manually
-
-```bash
-cd frontend
-npm run dev
-```
-
-The frontend will be available at `http://localhost:3000`.
-
-### Start API Manually
-
-```bash
-cd backend
-source .venv/bin/activate
-uvicorn app.main:app --reload
-```
-
-The API will be available at `http://127.0.0.1:8000`.
 
 ### Run Tests Manually
 
@@ -278,8 +277,9 @@ npm run build
 
 ### Current Repository State
 
-- The backend should be run from the `backend` directory when using the local `.venv`
 - The frontend lives in `frontend` as a Next.js App Router app
+- The backend lives in `backend` as a FastAPI app
+- Local runtime is intended to be container-first via Docker Compose
 - The frontend validates with `npm run lint` and `npm run build` on Node `24.18.0`
 - The only fully implemented backend endpoint today is the health check
 
