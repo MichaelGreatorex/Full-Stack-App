@@ -22,3 +22,14 @@ jobs:
 
       - name: Print Python version
         run: python --version
+
+      - name: Build Docker images
+        run: docker compose build
+
+      - name: Run pytest
+        run: |
+          docker compose run --rm backend /bin/sh -c "env -u DATABASE_HOST -u DATABASE_PORT -u DATABASE_NAME -u DATABASE_USER -u DATABASE_PASSWORD python -m pytest -c /app/pytest.ini -q /tests"
+
+      - name: Stop and remove containers
+        if: always()
+        run: docker compose down --volumes --remove-orphans
