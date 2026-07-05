@@ -24,7 +24,8 @@ jobs:
         run: docker compose up -d postgres
       
       - name: Run backend tests
-        run: docker compose run --rm backend pytest
+        run: |
+          docker compose run --rm -e ENVIRONMENT=test backend /bin/sh -c "env -u DATABASE_URL -u DATABASE_HOST -u DATABASE_PORT -u DATABASE_NAME -u DATABASE_USER -u DATABASE_PASSWORD pytest"
 
       - name: Tear down Docker Compose
         if: always()
