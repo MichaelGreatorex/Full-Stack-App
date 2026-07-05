@@ -4,7 +4,7 @@ An AI-powered interview preparation platform that generates personalized intervi
 
 ---
 
-[![Backend CI](https://github.com/michaelgreatorex/ai-intervview-coach/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/michaelgreatorex/ai-interview-coach/actions/workflows/backend-ci.yml)
+[![Backend CI](https://github.com/MichaelGreatorex/AI-Interview-Coach/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/MichaelGreatorex/AI-Interview-Coach/actions/workflows/backend-ci.yml)
 
 ---
 
