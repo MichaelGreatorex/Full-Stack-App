@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: ${PROJECT_NAME}-postgres
+    container_name: ${PROJECT_NAME:-full-stack-app}-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: ai_interview
@@ -20,7 +20,7 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: ${PROJECT_NAME}-backend
+    container_name: ${PROJECT_NAME:-full-stack-app}-backend
     restart: unless-stopped
     command:
       [
@@ -62,7 +62,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    container_name: ${PROJECT_NAME}-frontend
+    container_name: ${PROJECT_NAME:-full-stack-app}-frontend
     restart: unless-stopped
     environment:
       API_BASE_URL: http://backend:8000
