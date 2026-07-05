@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: ai-interview-coach-postgres
+    container_name: ${PROJECT_NAME}-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: ai_interview
@@ -20,7 +20,7 @@ services:
   backend:
     build:
       context: ./backend
-    container_name: ai-interview-coach-backend
+    container_name: ${PROJECT_NAME}-backend
     restart: unless-stopped
     command:
       [
@@ -62,7 +62,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    container_name: ai-interview-coach-frontend
+    container_name: ${PROJECT_NAME}-frontend
     restart: unless-stopped
     environment:
       API_BASE_URL: http://backend:8000

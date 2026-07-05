@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Interview Coach",
-  description: "AI-powered interview preparation platform",
+  title: "Full-Stack App",
+  description: "Generic full-stack application template",
 };
 
 export default function RootLayout({

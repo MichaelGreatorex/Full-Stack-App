@@ -30,16 +30,16 @@ export default async function Home() {
 
   const stages = [
     {
-      title: "Upload",
-      description: "Capture the candidate profile and job context in one place.",
+      title: "Plan",
+      description: "Define scope, API contracts, and development milestones.",
     },
     {
-      title: "Interview",
-      description: "Drive the mock interview loop from the structured backend flow.",
+      title: "Build",
+      description: "Implement frontend and backend features in parallel.",
     },
     {
-      title: "Results",
-      description: "Surface scoring, feedback, and the next best actions.",
+      title: "Ship",
+      description: "Validate quality and release through CI/CD automation.",
     },
   ];
 
@@ -49,10 +49,10 @@ export default async function Home() {
         <header className="flex items-center justify-between gap-4 border-b border-slate-200/80 pb-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-amber-700">
-              AI Interview Coach
+              Full-Stack Template
             </p>
             <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-              Build interview practice around the CV and job description.
+              Build and launch a modern web application.
             </h1>
           </div>
           <div className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-800">
@@ -64,15 +64,14 @@ export default async function Home() {
           <div className="space-y-6">
             <div className="rounded-[2rem] border border-slate-200 bg-white/85 p-8 shadow-[0_20px_80px_rgba(15,23,42,0.08)] backdrop-blur">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-slate-500">
-                Product shell
+                Starter shell
               </p>
               <h2 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight sm:text-5xl">
-                A focused flow from upload, to interview, to results.
+                A generic foundation for your next product.
               </h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-                This frontend is wired to the FastAPI health endpoint so the app can
-                immediately surface backend availability while the interview workflow
-                is built out.
+                This landing page is wired to the FastAPI health endpoint so the app
+                can surface backend availability while feature work is in progress.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3 text-sm font-medium text-slate-700">
@@ -107,7 +106,7 @@ export default async function Home() {
               <h3 className="mt-3 text-2xl font-semibold tracking-tight">Backend health</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">
                 The landing page fetches <span className="font-medium">/api/v1/health</span>
-                from FastAPI on the server and renders the current status directly into the UI.
+                from FastAPI on the server and renders the current status directly in the UI.
               </p>
             </div>
 
@@ -128,13 +127,13 @@ export default async function Home() {
                 <dt className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
                   Next milestone
                 </dt>
-                <dd className="mt-2 text-sm text-slate-700">Connect upload, interview, and results flows.</dd>
+                <dd className="mt-2 text-sm text-slate-700">Implement your first end-to-end feature flow.</dd>
               </div>
             </dl>
 
             <div className="rounded-[1.5rem] border border-dashed border-slate-300 p-5 text-sm leading-6 text-slate-600">
-              The three frontend folders at the repo root are ready for feature work: upload,
-              interview, and results.
+              Use this page as a neutral project dashboard while you build domain-specific
+              workflows.
             </div>
           </aside>
         </section>

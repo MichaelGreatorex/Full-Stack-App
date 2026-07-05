@@ -1,22 +1,22 @@
-# AI Interview Coach
+# Full-Stack Application Template
 
-An AI-powered interview preparation platform that generates personalized interview questions from a candidate's CV and job description, simulates mock interviews, and evaluates responses using structured AI-driven rubrics.
+A containerized full-stack application repository with a Next.js frontend, FastAPI backend, PostgreSQL data layer, and AWS-oriented deployment architecture.
 
 ---
 
-[![Backend CI](https://github.com/MichaelGreatorex/AI-Interview-Coach/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/MichaelGreatorex/AI-Interview-Coach/actions/workflows/backend-ci.yml)
+[![Backend CI](https://github.com/MichaelGreatorex/${PROJECT_NAME}/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/MichaelGreatorex/${PROJECT_NAME}/actions/workflows/backend-ci.yml)
 
 ---
 
 ## Overview
 
-This project simulates a real-world interview experience by:
+This repository provides a production-style foundation for building modern web applications with:
 
-- Parsing a user's CV (PDF upload)
-- Analyzing a job description
-- Generating tailored interview questions
-- Running a chat-based mock interview
-- Scoring and providing structured feedback on answers
+- A typed frontend client
+- A versioned backend API
+- A relational persistence layer
+- Container-first local development
+- CI/CD automation for validation and deployment
 
 The system is fully deployed on AWS with CI/CD automation.
 
@@ -38,7 +38,7 @@ The system is fully deployed on AWS with CI/CD automation.
 
 ### AWS Service Architecture
 
-- S3 (CV storage)
+- S3 (object storage)
 - RDS (PostgreSQL)
 - CloudWatch (logging)
 
@@ -50,38 +50,30 @@ The system is fully deployed on AWS with CI/CD automation.
 
 ## Core Features
 
-### CV And JD Analysis
+### API-First Service Design
 
-- Extracts structured data from CV
-- Parses job descriptions into skill requirements
-- Identifies skill gaps and alignment
+- Versioned REST API routes under `/api/v1`
+- Built-in health endpoint for runtime checks
+- Request/response modeling with Pydantic
 
-### Interview Generation
+### Frontend + Backend Separation
 
-- Generates technical questions
-- Generates behavioral questions
-- Generates CV-specific probing questions
+- Next.js frontend application
+- FastAPI backend service
+- Service-to-service communication through HTTP APIs
 
-### Mock Interview Engine
+### Local Developer Workflow
 
-- Chat-based interview flow
-- Stateful session management
-- Real-time question/answer loop
+- Docker Compose orchestration for local parity
+- Startup-time backend test gate before app launch
+- Scripted helpers for stack lifecycle management
 
-### AI Evaluation System
+### Operational Readiness
 
-Each answer is scored using:
+- Container health checks for service monitoring
+- Cloud-oriented deployment targets on AWS ECS (Fargate)
+- Logging and observability via CloudWatch
 
-- Clarity
-- Technical depth
-- Relevance
-- Structure (for example, STAR method)
-
-Outputs:
-
-- Score (1 to 10)
-- Strengths and weaknesses
-- Ideal improved answer
 
 ---
 
@@ -92,7 +84,7 @@ The system is deployed on AWS using containerized infrastructure.
 ### Deployment Components
 
 - ECS (Fargate): backend service runtime
-- S3: CV file storage
+- S3: object/file storage
 - RDS (PostgreSQL): persistent session storage
 - ALB: API routing
 - CloudWatch: logging and monitoring
@@ -133,7 +125,6 @@ Automated deployment via GitHub Actions:
 - pytest `9.1.1`
 - pytest-asyncio `1.4.0`
 - httpx2 `2.5.0`
-- OpenAI API (client package not added yet)
 
 ### Infrastructure Stack
 
@@ -192,7 +183,7 @@ If tests fail, the backend container exits and `docker compose up` reports the f
 Default local connection string (also in `backend/.env.example`):
 
 ```text
-postgresql://ai_interview:ai_interview_dev_password@127.0.0.1:5432/ai_interview_coach
+postgresql://app_user:app_password@127.0.0.1:5432/app_db
 ```
 
 Stop the stack:
@@ -237,7 +228,7 @@ python -m pytest -vv ../tests
 
 ### Test Suite Coverage
 
-The backend test suite currently validates configuration behavior, basic API health behavior, and API route wiring.
+The backend test suite currently validates configuration behavior, API health behavior, and API route wiring.
 
 #### `tests/test_config.py`
 
@@ -257,11 +248,7 @@ The backend test suite currently validates configuration behavior, basic API hea
   - Parameterized test that verifies each expected v1 route is present in `GET /openapi.json`.
   - Covered routes:
     - `/api/v1/health`
-    - `/api/v1/cv/upload`
-    - `/api/v1/jd/upload`
-    - `/api/v1/interview/start`
-    - `/api/v1/interview/answer`
-    - `/api/v1/sessions/{session_id}`
+    - Additional placeholder v1 routes for upload, workflow, and session retrieval
 
 #### `tests/conftest.py`
 
@@ -306,17 +293,17 @@ npm run build
 
 ## Key Engineering Highlights
 
-- End-to-end AI pipeline (CV -> JD -> interview -> scoring)
-- LLM-based structured evaluation system
+- Modular full-stack architecture (Next.js + FastAPI + PostgreSQL)
+- Versioned API design with centralized route wiring
 - Production-style cloud deployment on AWS
 - Automated CI/CD pipeline
-- Stateful conversational interview system
+- Container-first local development workflow
 
 ---
 
 ## Future Improvements
 
-- Voice-based interview mode
-- Adaptive difficulty questioning
-- Multi-interviewer simulation
-- Personal performance tracking over time
+- Expand backend route implementations beyond placeholders
+- Add endpoint-level behavior and integration tests
+- Add database migrations and seed data workflow
+- Extend observability with metrics and tracing
