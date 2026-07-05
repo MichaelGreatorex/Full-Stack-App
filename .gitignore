@@ -12,6 +12,10 @@ build/
 venv/
 env/
 
+# Environment files
+.env
+**/.env
+
 # Pytest
 .pytest_cache/
 .coverage

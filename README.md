@@ -4,11 +4,11 @@ A containerized full-stack application repository with a Next.js frontend, FastA
 
 ---
 
-[![Backend CI](https://github.com/${USERNAME}/${PROJECT_NAME}/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/${USERNAME}/${PROJECT_NAME}/actions/workflows/backend-ci.yml)
-
 [![Backend CI](https://github.com/MichaelGreatorex/Full-Stack-App/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/MichaelGreatorex/Full-Stack-App/actions/workflows/backend-ci.yml)
 
 ---
+
+Project metadata used for repository naming and links is stored in `project.config.env`.
 
 ## Overview
 
