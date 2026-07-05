@@ -4,6 +4,10 @@ An AI-powered interview preparation platform that generates personalized intervi
 
 ---
 
+[![Backend CI](https://github.com/michaelgreatorex/ai-intervview-coach/actions/workflows/ci.yml/badge.svg)](https://github.com/michaelgreatorex/ai-interview-coach/actions/workflows/ci.yml)
+
+---
+
 ## Overview
 
 This project simulates a real-world interview experience by:
